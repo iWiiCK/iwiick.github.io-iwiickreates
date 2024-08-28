@@ -1,1 +1,1 @@
-https://iwiick.github.io/iwiick.github.io-iwiickreates/
+https://iwiick.github.io/iwiickreates
