@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: #0000; /* Optional: background color for better contrast */
+}
+
+.image-wall {
+  display: grid; /* Use CSS Grid for layout */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(32%, 1fr)
+  ); /* Define responsive columns */
+  gap: 5px; /* Space between images */
+  padding: 10px; /* Padding around the gallery */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  background-color: rgba(0, 0, 0, 0.833); /* Background color for gaps */
+}
+
+/* Media Query for tablets (portrait) and small screens */
+@media (max-width: 768px) {
+  .image-wall {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(48%, 1fr)
+    ); /* Adjusted for tablets and smaller screens */
+  }
+}
+
+/* Media Query for mobile screens */
+@media (max-width: 480px) {
+  .image-wall {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(100%, 1fr)
+    ); /* Adjusted for mobile screens */
+  }
+}
+
+.image-container {
+  position: relative;
+  display: flex; /* Flexbox to center content */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  width: 100%;
+  height: 100%; /* Ensure container takes full height of the grid cell */
+  overflow: hidden; /* Hide overflow to prevent blurred background from showing outside the container */
+  transition: transform 0.3s ease-in-out, z-index 0.3s ease-in-out; /* Smooth transition for zoom effect */
+  cursor: pointer; /* Pointer cursor to indicate clickable */
+}
+
+.image-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit; /* Inherit the same background image */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  filter: blur(5px); /* Blur effect */
+  z-index: 1; /* Ensure the blurred image is behind the actual image */
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for blur effect */
+}
+
+iframe {
+  width: 90%;
+  height: 90%;
+}
+
+.image-container img,
+.image-container video {
+  position: relative;
+  z-index: 2; /* Ensure the actual image is above the blurred background */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8); /* Dark background to overlay the content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it is above other content */
+  opacity: 0; /* Hidden by default */
+  pointer-events: none; /* Ignore clicks when hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for appearance and scaling */
+}
+
+.fullscreen img,
+.fullscreen video {
+  max-width: 90%;
+  max-height: 90%;
+  transition: transform 0.3s ease; /* Smooth zoom effect */
+}
+
+.fullscreen.active {
+  opacity: 1; /* Show the fullscreen container */
+  pointer-events: auto; /* Allow clicks when visible */
+  transform: scale(1); /* Reset scaling */
+}
