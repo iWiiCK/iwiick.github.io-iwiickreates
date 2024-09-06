@@ -48,6 +48,8 @@ body {
   overflow: hidden; /* Hide overflow to prevent blurred background from showing outside the container */
   transition: transform 0.3s ease-in-out, z-index 0.3s ease-in-out; /* Smooth transition for zoom effect */
   cursor: pointer; /* Pointer cursor to indicate clickable */
+  max-height: 600px;
+  min-height: 300px;
 }
 
 .image-container::before {
